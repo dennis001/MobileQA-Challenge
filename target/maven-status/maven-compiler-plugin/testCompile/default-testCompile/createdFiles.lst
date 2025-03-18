@@ -1,0 +1,8 @@
+com\example\tests\runner\TestRunnerTest.class
+com\example\tests\modules\TabbarObjects.class
+com\example\tests\modules\LoginObjects.class
+com\example\tests\BaseTest.class
+com\example\utils\DriverManager.class
+com\example\tests\modules\ProfileObjects.class
+com\example\tests\modules\HomeObjects.class
+com\example\tests\steps\LoginSteps.class
