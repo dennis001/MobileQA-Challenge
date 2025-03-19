@@ -5,6 +5,7 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
 
 import java.time.Duration;
 
@@ -30,5 +31,17 @@ public abstract class BasePage {
         waitForElement(element);
         element.clear();
         element.sendKeys(text);
+    }
+
+     // Método genérico para esperar até que um elemento seja clicável
+     protected WebElement waitForElementToBeClickable(By locator, Duration timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    // Método genérico para esperar até que um elemento esteja visível
+    protected WebElement waitForElementToBeVisible(By locator, Duration timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 }

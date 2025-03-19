@@ -79,6 +79,15 @@ Para configurar o ambiente de forma automatizada, utilize os scripts fornecidos:
 - O projeto está configurado para rodar em dispositivos Android.
 - Certifique-se de que o dispositivo/emulador está rodando a versão 8.0 (Oreo) ou superior do Android.
 
+### Instalar no Emulado
+1. **Certifique-se de que o emulador está em execução**:
+   ```
+   adb devices
+   ```
+2. **Instale o APK no emulador**:
+   ```
+   adb install path/to/your/app.apk
+   ```
 ## Executando os Testes
 1. **Iniciar o Servidor Appium**: Abra um terminal e execute:
    ```
@@ -93,9 +102,56 @@ Para configurar o ambiente de forma automatizada, utilize os scripts fornecidos:
    mvn test
    ```
 
+## Pipeline no GitHub Actions
+   O projeto inclui uma pipeline configurada no GitHub Actions para executar os testes automaticamente.
+
+### Localização do Arquivo
+   O arquivo de configuração da pipeline está localizado em:
+   ```
+   .github/workflows/ci.yml`
+   ```
 
 ## Aplicativo em Teste
-Este projeto é projetado para testar um aplicativo móvel de exemplo. Certifique-se de que o aplicativo está instalado no dispositivo/emulador antes de executar os testes.
+
+Este projeto utiliza o aplicativo **"opencart-mobile-app-webkul.apk"** para realizar os testes automatizados. Certifique-se de seguir as etapas abaixo para instalar e configurar o aplicativo no dispositivo ou emulador antes de executar os testes.
+
+### Passos para Instalar e Configurar o Aplicativo
+
+1. **Baixe o APK**:
+   - Certifique-se de que o arquivo `opencart-mobile-app-webkul.apk` está disponível no seu computador.
+
+2. **Instale o APK no Emulador ou Dispositivo Físico**:
+   - **No Emulador**:
+     1. Certifique-se de que o emulador está em execução:
+        ```bash
+        adb devices
+        ```
+     2. Instale o APK no emulador:
+        ```bash
+        adb install path/to/opencart-mobile-app-webkul.apk
+        ```
+   - **No Dispositivo Físico**:
+     1. Conecte o dispositivo ao computador e verifique se ele está listado:
+        ```bash
+        adb devices
+        ```
+     2. Instale o APK no dispositivo:
+        ```bash
+        adb install path/to/opencart-mobile-app-webkul.apk
+        ```
+
+3. **Abra o Aplicativo**:
+   - Após a instalação, abra o aplicativo no dispositivo ou emulador.
+
+4. **Pesquise por "opencart"**:
+   - Na tela inicial do aplicativo, pesquise pelo termo **"opencart"**.
+
+5. **Siga as Instruções para Configuração**:
+   - Após encontrar o resultado da pesquisa, siga as instruções exibidas no aplicativo para concluir a configuração.
+
+6. **Pronto para Automação**:
+   - Após a configuração, o aplicativo estará pronto para ser utilizado nos testes automatizados.
+
 
 ## Notas Adicionais
 - A classe `BasePage` fornece métodos comuns para interagir com elementos móveis.

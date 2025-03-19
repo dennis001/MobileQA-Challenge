@@ -8,18 +8,24 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <!-- Propriedades do projeto -->
+    <!-- Project properties -->
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <appium.version>8.5.1</appium.version>
-        <selenium.version>4.1.2</selenium.version>
-        <junit.version>5.7.0</junit.version>
-        <cucumber.version>6.11.0</cucumber.version>
+        <selenium.version>4.12.0</selenium.version>
+        <junit.version>5.10.0</junit.version>
+        <cucumber.version>7.14.0</cucumber.version>
     </properties>
 
-    <!-- Dependências -->
+    <!-- Dependencies -->
     <dependencies>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>4.13.0</version>
+        </dependency>
         <!-- Appium Java Client -->
         <dependency>
             <groupId>io.appium</groupId>
@@ -63,28 +69,28 @@
         </dependency>
     </dependencies>
 
-    <!-- Configuração de Build -->
+    <!-- Build configuration -->
     <build>
         <plugins>
-            <!-- Plugin para compilar o código -->
+            <!-- Compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.10.1</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
 
-            <!-- Plugin para executar os testes -->
+            <!-- Surefire plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M7</version>
                 <configuration>
                     <includes>
-                        <include>**/*Test.java</include>
+                        <include>/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>

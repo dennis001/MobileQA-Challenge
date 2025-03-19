@@ -1,0 +1,74 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main # Futuramente, habilitar para executar em merges na main
+  pull_request:
+    branches:
+      - main # Executa a pipeline em PRs para a branch main
+  workflow_dispatch: # Permite execução manual da pipeline
+
+jobs:
+  run-tests:
+    name: Run Automated Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java-version: [11, 17] # Testa com múltiplas versões do Java
+        device: [emulator] # Futuramente, pode adicionar mais dispositivos
+
+    steps:
+      # Step 1: Checkout do código
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Configurar o Java
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'temurin'
+
+      # Step 3: Configurar o ambiente Android
+      - name: Setup Android Environment
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30 # API Level do emulador Android
+          target: default
+          arch: x86_64
+          profile: Nexus 6
+          script: echo "Emulator setup complete"
+
+      # Step 4: Instalar dependências do Maven
+      - name: Install dependencies
+        run: mvn install -DskipTests
+
+      # Step 5: Executar os testes
+      - name: Run Tests
+        run: mvn test
+
+      # Step 6: Gerar Relatório do Cucumber
+      - name: Generate Cucumber Report
+        run: mvn verify
+
+      # Step 7: Publicar Relatório do Cucumber
+      - name: Publish Cucumber Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: cucumber-report
+          path: target/cucumber-reports/ # Caminho do relatório gerado
+
+      # Step 8: Publicar Relatórios de Teste
+      - name: Publish Test Results
+        if: always() # Sempre publica os resultados, mesmo em caso de falha
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: target/surefire-reports/ # Caminho dos relatórios de teste
+
+  # Futuro: Adicionar lógica para execução em merges na main
+  # - name: Trigger on merge to main
+  #   if: github.ref == 'refs/heads/main'
+  #   run: echo "Pipeline executada após merge na main"

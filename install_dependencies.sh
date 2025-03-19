@@ -94,5 +94,6 @@ appium -v
 mvn -v
 java --version
 adb version
+mvn clean install
 
 echo "Todas as dependências foram instaladas com sucesso!"
